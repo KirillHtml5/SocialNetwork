@@ -1,9 +1,13 @@
 import React from 'react';
-import c from './MyPosts.module.css';
 import Post from "./Post/Post";
 import s from "./MyPosts.module.css"
 
 const MyPosts = () => {
+    let postData = [
+        {id: "1", message: "Hi, my name Kirill", likeCount: "15"},
+        {id: "2", message: "I am 24", likeCount: "20"}
+
+    ]
     return (
         <div className={s.postBlock}>
             <div>
@@ -19,8 +23,9 @@ const MyPosts = () => {
 
             </div>
             <div className={s.postsBlock}>
-                <Post message='Hi, my name Kirill' likecount='15'/>
-                <Post message='I am 24' likecount='20'/>
+                <Post message={postData[0].message} likecount={postData[0].likeCount}/>
+                <Post message={postData[1].message} likecount={postData[1].likeCount}/>
+
 
             </div>
         </div>

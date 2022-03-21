@@ -1,7 +1,9 @@
 import React from 'react';
 import s from "./Dialogs.module.css";
 
+
 export type MessagePropsType = {
+    id: string
     message: string
 }
 const Message = (props: MessagePropsType) => {
