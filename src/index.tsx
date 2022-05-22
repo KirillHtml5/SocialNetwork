@@ -4,10 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {State} from "./redux/State";
+import { BrowserRouter } from 'react-router-dom';
 
 
 ReactDOM.render(
-    <App state={State}/>
+    <BrowserRouter>
+        <App state={State}/>
+    </BrowserRouter>
     , document.getElementById('root')
 );
 
