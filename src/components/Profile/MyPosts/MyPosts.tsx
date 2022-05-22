@@ -6,6 +6,7 @@ import {postsType} from "../../../redux/State";
 
 export type MyPostsPropsType = {
     posts: Array<postsType>
+    addPost: (messagePost: string) => void
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
@@ -16,7 +17,7 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     const addPostButton = () => {
         if (newPostElement.current !== null) {
-            alert(newPostElement.current.value)
+            props.addPost(newPostElement.current.value)
         }
     }
 
