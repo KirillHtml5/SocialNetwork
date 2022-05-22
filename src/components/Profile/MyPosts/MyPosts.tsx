@@ -18,6 +18,7 @@ const MyPosts = (props: MyPostsPropsType) => {
     const addPostButton = () => {
         if (newPostElement.current !== null) {
             props.addPost(newPostElement.current.value)
+            newPostElement.current.value = '';
         }
     }
 

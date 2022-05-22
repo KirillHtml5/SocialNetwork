@@ -1,3 +1,5 @@
+import {Rerender} from "../rerender";
+
 export type dialogsType = {
     id: string
     name: string
@@ -29,6 +31,7 @@ export const addPost = (messagePost: string) => {
         likeCount: '0',
     };
     State.profilePage.posts.push(newPost);
+    Rerender(State);
 }
 
 export const State = {

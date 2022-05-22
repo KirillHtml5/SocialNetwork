@@ -1,18 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {addPost, State} from "./redux/State";
-import {BrowserRouter} from 'react-router-dom';
+import {State} from "./redux/State";
 
+import {Rerender} from "./rerender";
 
-ReactDOM.render(
-    <BrowserRouter>
-        <App state={State} addPost={addPost}/>
-    </BrowserRouter>
-    , document.getElementById('root')
-);
+Rerender(State);
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
