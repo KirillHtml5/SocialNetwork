@@ -17,20 +17,30 @@ export type postsType = {
 export type StateType = {
     profilePage: {
         posts: Array<postsType>
+        newTextPost: string
     }
     dialogsPage: {
         dialogs: Array<dialogsType>
         messages: Array<messagesType>
     }
 }
+// export type StateType = ReturnType<typeof State>
 
-export const addPost = (messagePost: string) => {
+
+export const addPost = () => {
     let newPost = {
         id: '4',
-        message: messagePost,
+        message: State.profilePage.newTextPost,
         likeCount: '0',
     };
     State.profilePage.posts.push(newPost);
+    State.profilePage.newTextPost = ''
+    Rerender(State);
+}
+
+export const updateNewPost = (newTextPost: string) => {
+
+    State.profilePage.newTextPost = newTextPost;
     Rerender(State);
 }
 
@@ -40,7 +50,8 @@ export const State = {
             {id: "1", message: "Hi, my name Kirill", likeCount: "15"},
             {id: "2", message: "I am 24", likeCount: "20"},
             {id: "3", message: "I am work", likeCount: "5"}
-        ]
+        ],
+        newTextPost: 'kirill'
     },
     dialogsPage: {
         dialogs: [
