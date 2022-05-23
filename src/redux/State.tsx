@@ -1,5 +1,3 @@
-import {Rerender} from "../rerender";
-
 export type dialogsType = {
     id: string
     name: string
@@ -26,6 +24,9 @@ export type StateType = {
 }
 // export type StateType = ReturnType<typeof State>
 
+let Rerender = (State: StateType) => {
+    console.log('State changed')
+}
 
 export const addPost = () => {
     let newPost = {
@@ -42,6 +43,10 @@ export const updateNewPost = (newTextPost: string) => {
 
     State.profilePage.newTextPost = newTextPost;
     Rerender(State);
+}
+
+export const subscribe = (observer: any) => {
+    Rerender = observer
 }
 
 export const State = {
