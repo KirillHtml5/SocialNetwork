@@ -1,3 +1,5 @@
+import {rerenderType} from "../index";
+
 export type dialogsType = {
     id: string
     name: string
@@ -22,57 +24,61 @@ export type StateType = {
         messages: Array<messagesType>
     }
 }
-// export type StateType = ReturnType<typeof State>
 
-let Rerender = (State: StateType) => {
-    console.log('State changed')
-}
+export type storeType = typeof store
 
-export const addPost = () => {
-    let newPost = {
-        id: '4',
-        message: State.profilePage.newTextPost,
-        likeCount: '0',
-    };
-    State.profilePage.posts.push(newPost);
-    State.profilePage.newTextPost = ''
-    Rerender(State);
-}
-
-export const updateNewPost = (newTextPost: string) => {
-
-    State.profilePage.newTextPost = newTextPost;
-    Rerender(State);
-}
-
-export const subscribe = (observer: any) => {
-    Rerender = observer
-}
-
-export const State = {
-    profilePage: {
-        posts: [
-            {id: "1", message: "Hi, my name Kirill", likeCount: "15"},
-            {id: "2", message: "I am 24", likeCount: "20"},
-            {id: "3", message: "I am work", likeCount: "5"}
-        ],
-        newTextPost: 'kirill'
+export const store = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: "1", message: "Hi, my name Kirill", likeCount: "15"},
+                {id: "2", message: "I am 24", likeCount: "20"},
+                {id: "3", message: "I am work", likeCount: "5"}
+            ],
+            newTextPost: 'kirill'
+        },
+        dialogsPage: {
+            dialogs: [
+                {id: "1", name: "Kirill"},
+                {id: "2", name: "Natasha"},
+                {id: "3", name: "Nikita"},
+                {id: "4", name: "Father"},
+                {id: "5", name: "Mother"}
+            ],
+            messages: [
+                {id: "1", mes: "Hi"},
+                {id: "2", mes: "How are you?"},
+                {id: "3", mes: "Yo"},
+                {id: "4", mes: "Yooo"},
+                {id: "5", mes: "YYooo"}
+            ]
+        }
     },
-    dialogsPage: {
-        dialogs: [
-            {id: "1", name: "Kirill"},
-            {id: "2", name: "Natasha"},
-            {id: "3", name: "Nikita"},
-            {id: "4", name: "Father"},
-            {id: "5", name: "Mother"}
-        ],
-        messages: [
-            {id: "1", mes: "Hi"},
-            {id: "2", mes: "How are you?"},
-            {id: "3", mes: "Yo"},
-            {id: "4", mes: "Yooo"},
-            {id: "5", mes: "YYooo"}
-        ]
-    }
+    getState() {
+        return this._state
+    },
+    _callSubscriber(state: StateType) {
+        alert('State changed')
+    },
+    addPost() {
+        let newPost = {
+            id: '4',
+            message: this._state.profilePage.newTextPost,
+            likeCount: '0',
+        };
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newTextPost = ''
+        this._callSubscriber(this._state);
+    },
+    updateNewPost(newTextPost: string) {
+
+        this._state.profilePage.newTextPost = newTextPost;
+        this._callSubscriber(this._state);
+    },
+    subscribe(observer: rerenderType) {
+        this._callSubscriber = observer
+    },
 }
 
+// @ts-ignore
+window.store = store
