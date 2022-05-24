@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import Post from "./Post/Post";
 import s from "./MyPosts.module.css"
-import {ActionType, postsType} from "../../../redux/State";
+import {ActionType, addPostAC, postsType, updatePostAC} from "../../../redux/State";
 
 
 export type MyPostsPropsType = {
@@ -18,15 +18,15 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     const addPostButton = () => {
 
-        let action = {type: "ADD-POST"} as const
-        props.dispatch(action)
+        // let action = {type: "ADD-POST"} as const
+        props.dispatch(addPostAC())
 
     }
     const changePost = () => {
         if (newPostElement.current !== null) {
-
-            let action = {type: "UPDATE-TEXT-POST", newTextPost: newPostElement.current.value} as const
-            props.dispatch(action)
+            let text = newPostElement.current.value
+            // let action = {type: "UPDATE-TEXT-POST", newTextPost: newPostElement.current.value} as const
+            props.dispatch(updatePostAC(text))
 
         }
     }

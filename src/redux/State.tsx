@@ -22,6 +22,7 @@ export type StateType = {
     dialogsPage: {
         dialogs: Array<dialogsType>
         messages: Array<messagesType>
+        newTextMessage: string
     }
 }
 
@@ -34,7 +35,14 @@ export type updateActionType = {
     type: "UPDATE-TEXT-POST",
     newTextPost: string
 }
-export type ActionType = addActionType | updateActionType
+export type addMessageActionType = {
+    type: "ADD-MESSAGE",
+}
+export type updateMessageActionType = {
+    type: "UPDATE-TEXT-MESSAGE",
+    newTextMessage: string
+}
+export type ActionType = addActionType | updateActionType | addMessageActionType | updateMessageActionType
 
 export const store = {
     _state: {
@@ -60,7 +68,8 @@ export const store = {
                 {id: "3", mes: "Yo"},
                 {id: "4", mes: "Yooo"},
                 {id: "5", mes: "YYooo"}
-            ]
+            ],
+            newTextMessage: 'Hello'
         }
     },
     _callSubscriber(state: StateType) {
@@ -89,9 +98,36 @@ export const store = {
 
             this._state.profilePage.newTextPost = action.newTextPost;
             this._callSubscriber(this._state);
+        } else if (action.type === "ADD-MESSAGE") {
+
+            let newMessage = {
+                id: '6',
+                mes: this._state.dialogsPage.newTextMessage,
+
+            };
+            this._state.dialogsPage.messages.push(newMessage);
+            this._state.dialogsPage.newTextMessage = ''
+            this._callSubscriber(this._state);
+        } else if (action.type === "UPDATE-TEXT-MESSAGE") {
+
+            this._state.dialogsPage.newTextMessage = action.newTextMessage;
+            this._callSubscriber(this._state);
         }
     },
 
+}
+
+export const addPostAC = (): addActionType => {
+    return {type: "ADD-POST"}
+}
+export const updatePostAC = (newTextPost: string): updateActionType => {
+    return {type: "UPDATE-TEXT-POST", newTextPost}
+}
+export const addMessageAC = (): addMessageActionType => {
+    return {type: "ADD-MESSAGE"}
+}
+export const updateMessageAC = (newTextMessage: string): updateMessageActionType => {
+    return {type: "UPDATE-TEXT-MESSAGE", newTextMessage}
 }
 
 // @ts-ignore
