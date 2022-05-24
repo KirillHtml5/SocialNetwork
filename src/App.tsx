@@ -22,10 +22,9 @@ function App(props: AppPropsType) {
             <Nav/>
             <div className='app-wrapper-content'>
                 <Routes>
-                    <Route path='/dialogs' element={<Dialogs dialogs={props.state.dialogsPage.dialogs}
-                                                             messages={props.state.dialogsPage.messages}
+                    <Route path='/dialogs' element={<Dialogs dialogsPage={props.state.dialogsPage}
                                                              dispatch={props.dispatch}
-                                                             newTextMessage={props.state.dialogsPage.newTextMessage}
+
                     />}/>
                     <Route path='/profile/*'
                            element={<Profile posts={props.state.profilePage.posts}

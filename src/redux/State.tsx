@@ -13,6 +13,11 @@ export type postsType = {
     message: string
     likeCount: string
 }
+export type dialogsPageType = {
+    dialogs: Array<dialogsType>
+    messages: Array<messagesType>
+    newTextMessage: string
+}
 
 export type StateType = {
     profilePage: {
@@ -69,7 +74,7 @@ export const store = {
                 {id: "4", mes: "Yooo"},
                 {id: "5", mes: "YYooo"}
             ],
-            newTextMessage: 'Hello'
+            newTextMessage: ''
         }
     },
     _callSubscriber(state: StateType) {
