@@ -27,6 +27,15 @@ export type StateType = {
 
 export type storeType = typeof store
 
+export type addActionType = {
+    type: "ADD-POST",
+}
+export type updateActionType = {
+    type: "UPDATE-TEXT-POST",
+    newTextPost: string
+}
+export type ActionType = addActionType | updateActionType
+
 export const store = {
     _state: {
         profilePage: {
@@ -54,30 +63,35 @@ export const store = {
             ]
         }
     },
-    getState() {
-        return this._state
-    },
     _callSubscriber(state: StateType) {
         alert('State changed')
     },
-    addPost() {
-        let newPost = {
-            id: '4',
-            message: this._state.profilePage.newTextPost,
-            likeCount: '0',
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newTextPost = ''
-        this._callSubscriber(this._state);
-    },
-    updateNewPost(newTextPost: string) {
 
-        this._state.profilePage.newTextPost = newTextPost;
-        this._callSubscriber(this._state);
+    getState() {
+        return this._state
     },
     subscribe(observer: rerenderType) {
         this._callSubscriber = observer
     },
+
+    dispatch(action: ActionType) {
+        if (action.type === "ADD-POST") {
+
+            let newPost = {
+                id: '4',
+                message: this._state.profilePage.newTextPost,
+                likeCount: '0',
+            };
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newTextPost = ''
+            this._callSubscriber(this._state);
+        } else if (action.type === "UPDATE-TEXT-POST") {
+
+            this._state.profilePage.newTextPost = action.newTextPost;
+            this._callSubscriber(this._state);
+        }
+    },
+
 }
 
 // @ts-ignore

@@ -13,7 +13,7 @@ const Rerender = (State: StateType) => {
 
     ReactDOM.render(
         <BrowserRouter>
-            <App state={State} addPost={store.addPost.bind(store)} updateNewPost={store.updateNewPost.bind(store)}/>
+            <App state={State} dispatch={store.dispatch.bind(store)}/>
         </BrowserRouter>
         , document.getElementById('root')
     );

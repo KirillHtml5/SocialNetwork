@@ -8,12 +8,11 @@ import {Route, Routes} from 'react-router-dom';
 import {News} from './components/News/News';
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {StateType} from "./redux/State";
+import {ActionType, StateType} from "./redux/State";
 
 export type AppPropsType = {
     state: StateType
-    addPost: () => void
-    updateNewPost: (newTextPost: string) => void
+    dispatch: (action: ActionType) => void
 }
 
 function App(props: AppPropsType) {
@@ -27,8 +26,7 @@ function App(props: AppPropsType) {
                                                              messages={props.state.dialogsPage.messages}/>}/>
                     <Route path='/profile/*'
                            element={<Profile posts={props.state.profilePage.posts}
-                                             addPost={props.addPost}
-                                             updateNewPost={props.updateNewPost}
+                                             dispatch={props.dispatch}
                                              newTextPost={props.state.profilePage.newTextPost}
                            />}/>
                     <Route path='/news' element={<News/>}/>
