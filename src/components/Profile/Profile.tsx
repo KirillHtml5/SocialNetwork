@@ -1,7 +1,8 @@
 import React from 'react';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {ActionType, postsType} from "../../redux/State";
+import {postsType} from "../../redux/State";
+import {ActionType} from "../../redux/profile-reducer";
 
 
 export type ProfilePropsType = {

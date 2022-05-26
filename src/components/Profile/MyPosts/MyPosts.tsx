@@ -1,7 +1,8 @@
 import React, {useRef} from 'react';
 import Post from "./Post/Post";
 import s from "./MyPosts.module.css"
-import {ActionType, addPostAC, postsType, updatePostAC} from "../../../redux/State";
+import {postsType} from "../../../redux/State";
+import {ActionType, addPostAC, updatePostAC} from '../../../redux/profile-reducer';
 
 
 export type MyPostsPropsType = {
@@ -38,7 +39,8 @@ const MyPosts = (props: MyPostsPropsType) => {
             </div>
             <div>
                 <div>
-                    <textarea ref={newPostElement} value={props.newTextPost} onChange={changePost}/>
+                    <textarea ref={newPostElement} value={props.newTextPost} onChange={changePost}
+                              placeholder="Enter your post"/>
                 </div>
                 <div>
                     <button onClick={addPostButton}>Add post</button>

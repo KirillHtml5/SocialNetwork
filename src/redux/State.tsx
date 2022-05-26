@@ -1,4 +1,7 @@
 import {rerenderType} from "../index";
+import profileReducer, {ActionType} from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 export type dialogsType = {
     id: string
@@ -12,6 +15,10 @@ export type postsType = {
     id: string
     message: string
     likeCount: string
+}
+export type profilePageType = {
+    posts: Array<postsType>
+    newTextPost: string
 }
 export type dialogsPageType = {
     dialogs: Array<dialogsType>
@@ -33,21 +40,6 @@ export type StateType = {
 
 export type storeType = typeof store
 
-export type addActionType = {
-    type: "ADD-POST",
-}
-export type updateActionType = {
-    type: "UPDATE-TEXT-POST",
-    newTextPost: string
-}
-export type addMessageActionType = {
-    type: "ADD-MESSAGE",
-}
-export type updateMessageActionType = {
-    type: "UPDATE-TEXT-MESSAGE",
-    newTextMessage: string
-}
-export type ActionType = addActionType | updateActionType | addMessageActionType | updateMessageActionType
 
 export const store = {
     _state: {
@@ -57,7 +49,7 @@ export const store = {
                 {id: "2", message: "I am 24", likeCount: "20"},
                 {id: "3", message: "I am work", likeCount: "5"}
             ],
-            newTextPost: 'kirill'
+            newTextPost: ''
         },
         dialogsPage: {
             dialogs: [
@@ -75,7 +67,8 @@ export const store = {
                 {id: "5", mes: "YYooo"}
             ],
             newTextMessage: ''
-        }
+        },
+        sidebar: {}
     },
     _callSubscriber(state: StateType) {
         alert('State changed')
@@ -89,51 +82,14 @@ export const store = {
     },
 
     dispatch(action: ActionType) {
-        if (action.type === "ADD-POST") {
-
-            let newPost = {
-                id: '4',
-                message: this._state.profilePage.newTextPost,
-                likeCount: '0',
-            };
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newTextPost = ''
-            this._callSubscriber(this._state);
-        } else if (action.type === "UPDATE-TEXT-POST") {
-
-            this._state.profilePage.newTextPost = action.newTextPost;
-            this._callSubscriber(this._state);
-        } else if (action.type === "ADD-MESSAGE") {
-
-            let newMessage = {
-                id: '6',
-                mes: this._state.dialogsPage.newTextMessage,
-
-            };
-            this._state.dialogsPage.messages.push(newMessage);
-            this._state.dialogsPage.newTextMessage = ''
-            this._callSubscriber(this._state);
-        } else if (action.type === "UPDATE-TEXT-MESSAGE") {
-
-            this._state.dialogsPage.newTextMessage = action.newTextMessage;
-            this._callSubscriber(this._state);
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+        this._callSubscriber(this._state);
     },
 
 }
 
-export const addPostAC = (): addActionType => {
-    return {type: "ADD-POST"}
-}
-export const updatePostAC = (newTextPost: string): updateActionType => {
-    return {type: "UPDATE-TEXT-POST", newTextPost}
-}
-export const addMessageAC = (): addMessageActionType => {
-    return {type: "ADD-MESSAGE"}
-}
-export const updateMessageAC = (newTextMessage: string): updateMessageActionType => {
-    return {type: "UPDATE-TEXT-MESSAGE", newTextMessage}
-}
 
 // @ts-ignore
 window.store = store
