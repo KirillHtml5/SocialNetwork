@@ -1,15 +1,15 @@
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {store} from "./redux/State";
+import {rootReducerType, store} from "./redux/redux-store";
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
-import {StateType} from "./redux/State";
+
 
 export type rerenderType = typeof Rerender
 
-const Rerender = (State: StateType) => {
+const Rerender = (State: rootReducerType) => {
 
     ReactDOM.render(
         <BrowserRouter>
@@ -20,7 +20,10 @@ const Rerender = (State: StateType) => {
 };
 
 Rerender(store.getState());
-store.subscribe(Rerender);
+store.subscribe(() => {
+    const state = store.getState();
+    Rerender(state);
+});
 
 
 // If you want to start measuring performance in your app, pass a function
