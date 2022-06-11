@@ -48,4 +48,3 @@ export const Dialogs = (props: DialogsPropsType) => {
         </div>
     )
 }
-

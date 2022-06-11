@@ -5,6 +5,7 @@ import {rootReducerType, store} from "./redux/redux-store";
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
+import {Provider} from "react-redux";
 
 
 export type rerenderType = typeof Rerender
@@ -13,7 +14,9 @@ const Rerender = (State: rootReducerType) => {
 
     ReactDOM.render(
         <BrowserRouter>
-            <App state={State} dispatch={store.dispatch.bind(store)}/>
+            <Provider store={store}>
+                <App state={State} dispatch={store.dispatch.bind(store)}/>
+            </Provider>
         </BrowserRouter>
         , document.getElementById('root')
     );

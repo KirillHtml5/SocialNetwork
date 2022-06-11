@@ -31,11 +31,11 @@ const profileReducer = (state: profilePageType = initialState, action: ActionTyp
             };
             state.posts.push(newPost);
             state.newTextPost = '';
-            return state;
+            return {...state};
         }
         case "UPDATE-TEXT-POST": {
             state.newTextPost = action.newTextPost;
-            return state;
+            return {...state};
         }
         default:
             return state;

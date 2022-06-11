@@ -1,27 +1,27 @@
 import React from 'react';
 import {StateType} from "../../redux/store";
-import {ActionType, addMessageAC, updateMessageAC} from '../../redux/dialogs-reducer';
+import {addMessageAC, updateMessageAC} from '../../redux/dialogs-reducer';
 import {Dialogs} from "./Dialogs";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
 
 
-export type DialogsPropsType = {
-    state: StateType
-    dispatch: (action: ActionType) => void
+let mapStateToProps = (state: StateType) => {
+    return {
+        dialogsPage: state.dialogsPage
+    }
+}
+let mapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+        updateMessage: (text: string) => {
+            dispatch(updateMessageAC(text))
+        },
+        addMessage: () => {
+            dispatch(addMessageAC())
+        }
+    }
+
 }
 
-export const DialogsContainer = (props: DialogsPropsType) => {
-    let dialogsPage = props.state.dialogsPage
 
-    const addMessageButton = () => {
-        props.dispatch(addMessageAC())
-    }
-    const changeMessage = (text: string) => {
-
-        props.dispatch(updateMessageAC(text))
-    }
-
-    return (
-        <Dialogs dialogsPage={dialogsPage} updateMessage={changeMessage} addMessage={addMessageButton}/>
-    )
-}
-
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)

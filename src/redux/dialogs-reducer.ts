@@ -39,11 +39,11 @@ const dialogsReducer = (state: dialogsPageType = initialState, action: ActionTyp
             };
             state.messages.push(newMessage);
             state.newTextMessage = '';
-            return state;
+            return {...state};
         }
         case "UPDATE-TEXT-MESSAGE": {
             state.newTextMessage = action.newTextMessage;
-            return state;
+            return {...state};
         }
         default:
             return state;

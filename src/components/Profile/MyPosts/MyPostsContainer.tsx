@@ -1,33 +1,26 @@
 import React from 'react';
-import {postsType, StateType} from "../../../redux/store";
-import {ActionType, addPostAC, updatePostAC} from '../../../redux/profile-reducer';
+import {StateType} from "../../../redux/store";
+import {addPostAC, updatePostAC} from '../../../redux/profile-reducer';
 import MyPosts from "./MyPosts";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
 
 
-export type MyPostsPropsType = {
-    state: StateType
-    dispatch: (action: ActionType) => void
-}
-
-const MyPostsContainer = (props: MyPostsPropsType) => {
-
-
-    const addPostButton = () => {
-
-        props.dispatch(addPostAC())
-
+let mapStateToProps = (state: StateType) => {
+    return {
+        posts: state.profilePage.posts,
+        newTextPost: state.profilePage.newTextPost
     }
-    const changePost = (text: string) => {
-
-        props.dispatch(updatePostAC(text))
-    }
-
-    return (
-        <MyPosts posts={props.state.profilePage.posts}
-                 newTextPost={props.state.profilePage.newTextPost}
-                 updatePost={changePost}
-                 addPost={addPostButton}/>
-    )
 }
-
+let mapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+        updatePost: (text: string) => {
+            dispatch(updatePostAC(text))
+        },
+        addPost: () => {
+            dispatch(addPostAC())
+        }
+    }
+}
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 export default MyPostsContainer;
