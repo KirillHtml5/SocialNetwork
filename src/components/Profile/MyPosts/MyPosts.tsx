@@ -2,12 +2,12 @@ import React, {useRef} from 'react';
 import Post from "./Post/Post";
 import s from "./MyPosts.module.css"
 import {postsType} from "../../../redux/store";
-import {ActionType, addPostAC, updatePostAC} from '../../../redux/profile-reducer';
 
 
 export type MyPostsPropsType = {
     posts: Array<postsType>
-    dispatch: (action: ActionType) => void
+    updatePost: (text: string) => void
+    addPost: () => void
     newTextPost: string
 }
 
@@ -19,15 +19,13 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     const addPostButton = () => {
 
-        // let action = {type: "ADD-POST"} as const
-        props.dispatch(addPostAC())
+        props.addPost()
 
     }
     const changePost = () => {
         if (newPostElement.current !== null) {
             let text = newPostElement.current.value
-            // let action = {type: "UPDATE-TEXT-POST", newTextPost: newPostElement.current.value} as const
-            props.dispatch(updatePostAC(text))
+            props.updatePost(text)
 
         }
     }

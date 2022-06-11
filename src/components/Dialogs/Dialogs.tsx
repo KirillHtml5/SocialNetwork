@@ -3,13 +3,12 @@ import s from './Dialogs.module.css';
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
 import {dialogsPageType} from "../../redux/store";
-import {ActionType, addMessageAC, updateMessageAC} from '../../redux/dialogs-reducer';
 
 
 export type DialogsPropsType = {
     dialogsPage: dialogsPageType
-
-    dispatch: (action: ActionType) => void
+    addMessage: () => void
+    updateMessage: (text: string) => void
 
 }
 
@@ -21,12 +20,12 @@ export const Dialogs = (props: DialogsPropsType) => {
 
 
     const addMessageButton = () => {
-        props.dispatch(addMessageAC())
+        props.addMessage()
     }
     const changeMessage = (event: ChangeEvent<HTMLTextAreaElement>) => {
 
         let text = event.currentTarget.value;
-        props.dispatch(updateMessageAC(text))
+        props.updateMessage(text)
     }
 
     return (

@@ -10,6 +10,7 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {StateType} from "./redux/store";
 import {ActionType} from "./redux/profile-reducer";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 export type AppPropsType = {
     state: StateType
@@ -23,15 +24,9 @@ function App(props: AppPropsType) {
             <Nav/>
             <div className='app-wrapper-content'>
                 <Routes>
-                    <Route path='/dialogs' element={<Dialogs dialogsPage={props.state.dialogsPage}
-                                                             dispatch={props.dispatch}
-
-                    />}/>
+                    <Route path='/dialogs' element={<DialogsContainer state={props.state} dispatch={props.dispatch}/>}/>
                     <Route path='/profile/*'
-                           element={<Profile posts={props.state.profilePage.posts}
-                                             dispatch={props.dispatch}
-                                             newTextPost={props.state.profilePage.newTextPost}
-                           />}/>
+                           element={<Profile state={props.state} dispatch={props.dispatch}/>}/>
                     <Route path='/news' element={<News/>}/>
                     <Route path='/music' element={<Music/>}/>
                     <Route path='/settings' element={<Settings/>}/>
