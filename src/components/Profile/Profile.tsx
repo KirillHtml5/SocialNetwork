@@ -5,12 +5,12 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {StateType} from "../../redux/store";
 
 
-export type ProfilePropsType = {
-    state: StateType
-    dispatch: (action: ActionType) => void
-}
+// export type ProfilePropsType = {
+//     state: StateType
+//     dispatch: (action: ActionType) => void
+// }
 
-const Profile = (props: ProfilePropsType) => {
+const Profile = () => {
     return (
         <div>
             <ProfileInfo/>

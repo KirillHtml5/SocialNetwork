@@ -12,12 +12,12 @@ import {StateType} from "./redux/store";
 import {ActionType} from "./redux/profile-reducer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
-export type AppPropsType = {
-    state: StateType
-    dispatch: (action: ActionType) => void
-}
+// export type AppPropsType = {
+//     state: StateType
+//     dispatch: (action: ActionType) => void
+// }
 
-function App(props: AppPropsType) {
+function App() {
     return (
         <div className='app-wrapper'>
             <Header/>
@@ -26,7 +26,7 @@ function App(props: AppPropsType) {
                 <Routes>
                     <Route path='/dialogs' element={<DialogsContainer/>}/>
                     <Route path='/profile/*'
-                           element={<Profile state={props.state} dispatch={props.dispatch}/>}/>
+                           element={<Profile />}/>
                     <Route path='/news' element={<News/>}/>
                     <Route path='/music' element={<Music/>}/>
                     <Route path='/settings' element={<Settings/>}/>

@@ -29,13 +29,17 @@ const profileReducer = (state: profilePageType = initialState, action: ActionTyp
                 message: state.newTextPost,
                 likeCount: '0',
             };
-            state.posts.push(newPost);
-            state.newTextPost = '';
-            return {...state};
+            let stateCopy = {...state};
+            stateCopy.posts = [...stateCopy.posts];
+            stateCopy.posts.push(newPost);
+            stateCopy.newTextPost = '';
+            return stateCopy;
         }
         case "UPDATE-TEXT-POST": {
-            state.newTextPost = action.newTextPost;
-            return {...state};
+            let stateCopy = {...state};
+            stateCopy.posts = [...stateCopy.posts];
+            stateCopy.newTextPost = action.newTextPost;
+            return stateCopy;
         }
         default:
             return state;

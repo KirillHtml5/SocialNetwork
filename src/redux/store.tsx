@@ -1,4 +1,4 @@
-import {rerenderType} from "../index";
+
 import profileReducer, {ActionType} from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
@@ -77,9 +77,9 @@ export const store = {
     getState() {
         return this._state
     },
-    subscribe(observer: rerenderType) {
-        this._callSubscriber = observer
-    },
+    // subscribe(observer: rerenderType) {
+    //     this._callSubscriber = observer
+    // },
 
     dispatch(action: ActionType) {
         this._state.profilePage = profileReducer(this._state.profilePage, action);

@@ -8,25 +8,14 @@ import App from "./App";
 import {Provider} from "react-redux";
 
 
-export type rerenderType = typeof Rerender
-
-const Rerender = (State: rootReducerType) => {
-
-    ReactDOM.render(
-        <BrowserRouter>
-            <Provider store={store}>
-                <App state={State} dispatch={store.dispatch.bind(store)}/>
-            </Provider>
-        </BrowserRouter>
-        , document.getElementById('root')
-    );
-};
-
-Rerender(store.getState());
-store.subscribe(() => {
-    const state = store.getState();
-    Rerender(state);
-});
+ReactDOM.render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </BrowserRouter>
+    , document.getElementById('root')
+);
 
 
 // If you want to start measuring performance in your app, pass a function
