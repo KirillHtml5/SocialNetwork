@@ -37,17 +37,18 @@ const dialogsReducer = (state: dialogsPageType = initialState, action: ActionTyp
                 mes: state.newTextMessage,
 
             };
-            let stateCopy = {...state};
-            stateCopy.messages = [...stateCopy.messages];
-            stateCopy.messages.push(newMessage);
-            stateCopy.newTextMessage = '';
-            return stateCopy;
+            return {
+                ...state,
+                messages: [...state.messages, newMessage],
+                newTextMessage: ''
+            };
+
         }
         case "UPDATE-TEXT-MESSAGE": {
-            let stateCopy = {...state};
-            stateCopy.messages = [...stateCopy.messages];
-            stateCopy.newTextMessage = action.newTextMessage;
-            return stateCopy;
+            return {
+                ...state,
+                newTextMessage: action.newTextMessage
+            };
         }
         default:
             return state;
