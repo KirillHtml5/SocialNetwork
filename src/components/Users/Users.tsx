@@ -18,7 +18,7 @@ export const Users = (props: UsersPropsType) => {
                 id: '1',
                 photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
                 followed: true,
-                fullName: 'Kirill',
+                fullName: 'Kirill123',
                 status: 'I am a student',
                 location: {city: 'Minsk', country: 'Belarus'}
             },

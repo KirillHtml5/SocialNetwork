@@ -22,6 +22,10 @@ export type usersType = {
     status: string,
     location: { city: string, country: string }
 }
+export type UsersPageType = {
+    users: usersType[]
+}
+
 
 export type ActionType = addActionType
     | updateActionType
@@ -33,42 +37,8 @@ export type ActionType = addActionType
 
 export type initialStateType = typeof initialState
 
-const initialState = {
-    users: [
-        {
-            id: '1',
-            photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
-            followed: true,
-            fullName: 'Kirill',
-            status: 'I am a student',
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-        {
-            id: '2',
-            photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
-            followed: true,
-            fullName: 'Natasha',
-            status: 'I am a wife',
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-        {
-            id: '3',
-            photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
-            followed: false,
-            fullName: 'Nikita',
-            status: 'I am a children',
-            location: {city: 'Gorky', country: 'Belarus'}
-        },
-        {
-            id: '4',
-            photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
-            followed: false,
-            fullName: 'Liza',
-            status: 'I am a girl',
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-
-    ]
+const initialState: UsersPageType = {
+    users: []
 }
 
 const usersReducer = (state: initialStateType = initialState, action: ActionType): initialStateType => {
