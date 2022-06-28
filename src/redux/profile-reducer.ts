@@ -1,5 +1,6 @@
 import {addMessageActionType, updateMessageActionType} from './dialogs-reducer';
 import {profilePageType} from "./store";
+import {followActionType, setUsersActionType, unfollowActionType} from "./users-reducer";
 
 
 export type addActionType = {
@@ -10,7 +11,13 @@ export type updateActionType = {
     newTextPost: string
 }
 
-export type ActionType = addActionType | updateActionType | addMessageActionType | updateMessageActionType
+export type ActionType = addActionType
+    | updateActionType
+    | addMessageActionType
+    | updateMessageActionType
+    |followActionType
+    | unfollowActionType
+    | setUsersActionType
 
 const initialState = {
     posts: [

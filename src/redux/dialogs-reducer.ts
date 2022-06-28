@@ -1,5 +1,6 @@
 import {dialogsPageType} from "./store";
 import {addActionType, updateActionType} from "./profile-reducer";
+import {followActionType, setUsersActionType, unfollowActionType} from "./users-reducer";
 
 
 export type addMessageActionType = {
@@ -9,7 +10,13 @@ export type updateMessageActionType = {
     type: "UPDATE-TEXT-MESSAGE",
     newTextMessage: string
 }
-export type ActionType = addActionType | updateActionType | addMessageActionType | updateMessageActionType
+export type ActionType = addActionType
+    | updateActionType
+    | addMessageActionType
+    | updateMessageActionType
+    |followActionType
+    | unfollowActionType
+    | setUsersActionType
 
 const initialState = {
     dialogs: [
