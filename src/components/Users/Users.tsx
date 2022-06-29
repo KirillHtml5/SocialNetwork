@@ -18,7 +18,6 @@ export const Users = (props: UsersPropsType) => {
 
         axios.get("https://social-network.samuraijs.com/api/1.0/users")
             .then((res) => {
-                debugger
                 props.setUsers(res.data.items)
                 console.log(res.data.items)
             })
