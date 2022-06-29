@@ -3,11 +3,11 @@ import {addActionType, updateActionType} from "./profile-reducer";
 
 export type followActionType = {
     type: "FOLLOW",
-    userId: string
+    userId: number
 }
 export type unfollowActionType = {
     type: "UNFOLLOW",
-    userId: string
+    userId: number
 }
 export type setUsersActionType = {
     type: "SET-USERS",
@@ -15,15 +15,19 @@ export type setUsersActionType = {
 
 }
 export type usersType = {
-    id: string,
-    photoUrl: string,
-    followed: boolean,
-    fullName: string,
+    name: string,
+    id: number,
+    photos: {
+        small?: string,
+        large?: string,
+    },
     status: string,
-    location: { city: string, country: string }
+    followed: boolean
 }
 export type UsersPageType = {
-    users: usersType[]
+    users: usersType[],
+    totalCount: number,
+    error: string
 }
 
 
@@ -31,14 +35,16 @@ export type ActionType = addActionType
     | updateActionType
     | addMessageActionType
     | updateMessageActionType
-    |followActionType
+    | followActionType
     | unfollowActionType
     | setUsersActionType
 
 export type initialStateType = typeof initialState
 
 const initialState: UsersPageType = {
-    users: []
+    users: [],
+    totalCount: 0,
+    error: ''
 }
 
 const usersReducer = (state: initialStateType = initialState, action: ActionType): initialStateType => {
@@ -67,10 +73,10 @@ const usersReducer = (state: initialStateType = initialState, action: ActionType
 };
 
 
-export const followAC = (userId: string): followActionType => {
+export const followAC = (userId: number): followActionType => {
     return {type: "FOLLOW", userId}
 }
-export const unfollowAC = (userId: string): unfollowActionType => {
+export const unfollowAC = (userId: number): unfollowActionType => {
     return {type: "UNFOLLOW", userId}
 }
 export const setUsersAC = (users: Array<usersType>): setUsersActionType => {

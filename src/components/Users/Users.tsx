@@ -1,11 +1,13 @@
 import React from 'react'
 import {usersType} from "../../redux/users-reducer";
 import s from "./Users.module.css"
+import axios from "axios";
+import userPhoto from "../../assets/images/user.png"
 
 export type UsersPropsType = {
     users: Array<usersType>
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     setUsers: (users: Array<usersType>) => void
 
 }
@@ -13,40 +15,14 @@ export type UsersPropsType = {
 export const Users = (props: UsersPropsType) => {
 
     if (props.users.length === 0) {
-        props.setUsers([
-            {
-                id: '1',
-                photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
-                followed: true,
-                fullName: 'Kirill123',
-                status: 'I am a student',
-                location: {city: 'Minsk', country: 'Belarus'}
-            },
-            {
-                id: '2',
-                photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
-                followed: true,
-                fullName: 'Natasha',
-                status: 'I am a wife',
-                location: {city: 'Minsk', country: 'Belarus'}
-            },
-            {
-                id: '3',
-                photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
-                followed: false,
-                fullName: 'Nikita',
-                status: 'I am a children',
-                location: {city: 'Gorky', country: 'Belarus'}
-            },
-            {
-                id: '4',
-                photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
-                followed: false,
-                fullName: 'Liza',
-                status: 'I am a girl',
-                location: {city: 'Minsk', country: 'Belarus'}
-            },
-        ])
+
+        axios.get("https://social-network.samuraijs.com/api/1.0/users")
+            .then((res) => {
+                debugger
+                props.setUsers(res.data.items)
+                console.log(res.data.items)
+            })
+
     }
 
     return (
@@ -55,7 +31,7 @@ export const Users = (props: UsersPropsType) => {
                 props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.photoUrl} className={s.photo}/>
+                            <img src={u.photos.small != null ? u.photos.small : userPhoto} className={s.photo}/>
                         </div>
                         <div>
                             {u.followed
@@ -71,7 +47,7 @@ export const Users = (props: UsersPropsType) => {
                     <span>
                         <span>
                             <div>
-                                {u.fullName}
+                                {u.name}
                             </div>
                             <div>
                                 {u.status}
@@ -79,10 +55,10 @@ export const Users = (props: UsersPropsType) => {
                         </span>
                         <span>
                             <div>
-                                {u.location.country}
+                                {"u.location.country"}
                             </div>
                             <div>
-                                {u.location.city}
+                                {"u.location.city"}
                             </div>
                         </span>
                     </span>

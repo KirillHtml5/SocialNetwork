@@ -14,7 +14,7 @@ export type ActionType = addActionType
     | updateActionType
     | addMessageActionType
     | updateMessageActionType
-    |followActionType
+    | followActionType
     | unfollowActionType
     | setUsersActionType
 

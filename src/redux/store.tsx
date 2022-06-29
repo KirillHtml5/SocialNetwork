@@ -37,7 +37,9 @@ export type StateType = {
         newTextMessage: string
     }
     usersPage: {
-        users: Array<usersType>
+        users: Array<usersType>,
+        totalCount: number,
+        error: string
     }
 }
 
@@ -72,42 +74,46 @@ export const store = {
             newTextMessage: ''
         },
         usersPage: {
-            users: [
-                {
-                    id: '1',
-                    photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
-                    followed: true,
-                    fullName: 'Kirill',
-                    status: 'I am a student',
-                    location: {city: 'Minsk', country: 'Belarus'}
-                },
-                {
-                    id: '2',
-                    photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
-                    followed: true,
-                    fullName: 'Natasha',
-                    status: 'I am a wife',
-                    location: {city: 'Minsk', country: 'Belarus'}
-                },
-                {
-                    id: '3',
-                    photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
-                    followed: false,
-                    fullName: 'Nikita',
-                    status: 'I am a children',
-                    location: {city: 'Gorky', country: 'Belarus'}
-                },
-                {
-                    id: '4',
-                    photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
-                    followed: false,
-                    fullName: 'Liza',
-                    status: 'I am a girl',
-                    location: {city: 'Minsk', country: 'Belarus'}
-                },
-
-            ]
+            users: [],
+            totalCount: 0,
+            error: ''
         },
+        //     users: [
+        //         {
+        //             id: '1',
+        //             photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
+        //             followed: true,
+        //             fullName: 'Kirill',
+        //             status: 'I am a student',
+        //             location: {city: 'Minsk', country: 'Belarus'}
+        //         },
+        //         {
+        //             id: '2',
+        //             photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
+        //             followed: true,
+        //             fullName: 'Natasha',
+        //             status: 'I am a wife',
+        //             location: {city: 'Minsk', country: 'Belarus'}
+        //         },
+        //         {
+        //             id: '3',
+        //             photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
+        //             followed: false,
+        //             fullName: 'Nikita',
+        //             status: 'I am a children',
+        //             location: {city: 'Gorky', country: 'Belarus'}
+        //         },
+        //         {
+        //             id: '4',
+        //             photoUrl: 'https://bipbap.ru/wp-content/uploads/2021/07/modnye-avatarki-dlya-vk_0.jpg',
+        //             followed: false,
+        //             fullName: 'Liza',
+        //             status: 'I am a girl',
+        //             location: {city: 'Minsk', country: 'Belarus'}
+        //         },
+        //
+        //     ]
+        // },
         sidebar: {}
     },
     _callSubscriber(state: StateType) {
@@ -125,7 +131,7 @@ export const store = {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
         this._state.sidebar = sidebarReducer(this._state.sidebar, action);
-        this._state.usersPage = usersReducer(this._state.usersPage, action);
+        // this._state.usersPage = usersReducer(this._state.usersPage, action);
         this._callSubscriber(this._state);
     },
 

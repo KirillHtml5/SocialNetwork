@@ -13,7 +13,7 @@ export type MyPostsPropsType = {
 
 const MyPosts = (props: MyPostsPropsType) => {
 
-    let postsElement = props.posts.map(p => <Post message={p.message} likecount={p.likeCount}/>)
+    let postsElement = props.posts.map(p => <Post key={p.id} message={p.message} likecount={p.likeCount}/>)
 
     const newPostElement = useRef<HTMLTextAreaElement>(null);
 
