@@ -14,18 +14,21 @@ export type UsersPropsType = {
 
 export const Users = (props: UsersPropsType) => {
 
-    if (props.users.length === 0) {
+    const getUsers = () => {
+        if (props.users.length === 0) {
 
-        axios.get("https://social-network.samuraijs.com/api/1.0/users")
-            .then((res) => {
-                props.setUsers(res.data.items)
-                console.log(res.data.items)
-            })
-
+            axios.get("https://social-network.samuraijs.com/api/1.0/users")
+                .then((res) => {
+                    props.setUsers(res.data.items)
+                    console.log(res.data.items)
+                })
+        }
     }
+
 
     return (
         <div>
+            <button onClick={getUsers}>Get users</button>
             {
                 props.users.map(u => <div key={u.id}>
                     <span>
