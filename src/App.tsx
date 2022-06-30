@@ -10,7 +10,6 @@ import {Settings} from "./components/Settings/Settings";
 import {StateType} from "./redux/store";
 import {ActionType} from "./redux/profile-reducer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-import {Users} from "./components/Users/Users";
 import {UsersContainer} from "./components/Users/UsersContainer";
 
 // export type AppPropsType = {
