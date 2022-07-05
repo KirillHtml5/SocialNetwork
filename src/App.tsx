@@ -17,7 +17,7 @@ import {UsersContainer} from "./components/Users/UsersContainer";
 //     dispatch: (action: ActionType) => void
 // }
 
-function App() {
+const App = () => {
     return (
         <div className='app-wrapper'>
             <Header/>
@@ -26,7 +26,7 @@ function App() {
                 <Routes>
                     <Route path='/dialogs' element={<DialogsContainer/>}/>
                     <Route path='/profile/*'
-                           element={<Profile />}/>
+                           element={<Profile/>}/>
                     <Route path='/news' element={<News/>}/>
                     <Route path='/music' element={<Music/>}/>
                     <Route path='/settings' element={<Settings/>}/>
