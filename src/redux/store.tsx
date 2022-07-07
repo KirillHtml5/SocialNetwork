@@ -1,7 +1,7 @@
 import profileReducer, {ActionType} from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
-import usersReducer, {usersType} from "./users-reducer";
+import  {userType} from "./users-reducer";
 
 export type dialogsType = {
     id: string
@@ -37,7 +37,7 @@ export type StateType = {
         newTextMessage: string
     }
     usersPage: {
-        users: Array<usersType>,
+        users: Array<userType>,
         totalCount: number,
         error: string
     }

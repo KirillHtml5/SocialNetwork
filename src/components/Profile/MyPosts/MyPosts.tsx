@@ -1,19 +1,12 @@
 import React, {useRef} from 'react';
 import Post from "./Post/Post";
 import s from "./MyPosts.module.css"
-import {postsType} from "../../../redux/store";
+import {PostsPropsType} from "./MyPostsContainer";
 
 
-export type MyPostsPropsType = {
-    posts: Array<postsType>
-    updatePost: (text: string) => void
-    addPost: () => void
-    newTextPost: string
-}
+const MyPosts = (props: PostsPropsType) => {
 
-const MyPosts = (props: MyPostsPropsType) => {
-
-    let postsElement = props.posts.map(p => <Post key={p.id} message={p.message} likecount={p.likeCount}/>)
+    let postsElement = props.profilePage.posts.map(p => <Post key={p.id} message={p.message} likecount={p.likeCount}/>)
 
     const newPostElement = useRef<HTMLTextAreaElement>(null);
 
@@ -37,7 +30,7 @@ const MyPosts = (props: MyPostsPropsType) => {
             </div>
             <div>
                 <div>
-                    <textarea ref={newPostElement} value={props.newTextPost} onChange={changePost}
+                    <textarea ref={newPostElement} value={props.profilePage.newTextPost} onChange={changePost}
                               placeholder="Enter your post"/>
                 </div>
                 <div>

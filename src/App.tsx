@@ -7,15 +7,9 @@ import {Route, Routes} from 'react-router-dom';
 import {News} from './components/News/News';
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {StateType} from "./redux/store";
-import {ActionType} from "./redux/profile-reducer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 
-// export type AppPropsType = {
-//     state: StateType
-//     dispatch: (action: ActionType) => void
-// }
 
 const App = () => {
     return (

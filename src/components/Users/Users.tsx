@@ -1,20 +1,14 @@
 import React from 'react'
-import {usersType} from "../../redux/users-reducer";
 import s from "./Users.module.css"
 import axios from "axios";
 import userPhoto from "../../assets/images/user.png"
+import {UsersPropsType} from "./UsersContainer";
+import {rootReducerType} from "../../redux/redux-store";
 
-export type UsersPropsType = {
-    users: Array<usersType>
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    setUsers: (users: Array<usersType>) => void
 
-}
-
-class Users extends React.Component <UsersPropsType, any> {
+class Users extends React.Component <UsersPropsType, rootReducerType> {
     componentDidMount() {
-        if (this.props.users.length === 0) {
+        if (this.props.usersPage.users.length === 0) {
 
             axios.get("https://social-network.samuraijs.com/api/1.0/users")
                 .then((res) => {
@@ -29,7 +23,7 @@ class Users extends React.Component <UsersPropsType, any> {
         return (
             <div>
                 {
-                    this.props.users.map(u => <div key={u.id}>
+                    this.props.usersPage.users.map(u => <div key={u.id}>
                     <span>
                         <div>
                             <img src={u.photos.small != null ? u.photos.small : userPhoto} className={s.photo}/>

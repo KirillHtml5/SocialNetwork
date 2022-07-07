@@ -1,5 +1,5 @@
 import {addMessageActionType, updateMessageActionType} from './dialogs-reducer';
-import {profilePageType} from "./store";
+import {postsType} from "./store";
 import {followActionType, setUsersActionType, unfollowActionType} from "./users-reducer";
 
 
@@ -24,11 +24,13 @@ const initialState = {
         {id: "1", message: "Hi, my name Kirill", likeCount: "15"},
         {id: "2", message: "I am 24", likeCount: "20"},
         {id: "3", message: "I am work", likeCount: "5"}
-    ],
+    ] as Array<postsType>,
     newTextPost: ''
 }
 
-const profileReducer = (state: profilePageType = initialState, action: ActionType): profilePageType => {
+export type InitialStateType = typeof initialState
+
+const profileReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "ADD-POST": {
             let newPost = {

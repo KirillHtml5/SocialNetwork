@@ -1,4 +1,4 @@
-import {dialogsPageType} from "./store";
+import {dialogsType, messagesType} from "./store";
 import {addActionType, updateActionType} from "./profile-reducer";
 import {followActionType, setUsersActionType, unfollowActionType} from "./users-reducer";
 
@@ -25,18 +25,20 @@ const initialState = {
         {id: "3", name: "Nikita"},
         {id: "4", name: "Father"},
         {id: "5", name: "Mother"}
-    ],
+    ] as Array<dialogsType>,
     messages: [
         {id: "1", mes: "Hi"},
         {id: "2", mes: "How are you?"},
         {id: "3", mes: "Yo"},
         {id: "4", mes: "Yooo"},
         {id: "5", mes: "YYooo"}
-    ],
+    ] as Array<messagesType>,
     newTextMessage: ''
 }
 
-const dialogsReducer = (state: dialogsPageType = initialState, action: ActionType): dialogsPageType => {
+export type InitialStateType = typeof initialState
+
+const dialogsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "ADD-MESSAGE": {
             let newMessage = {
