@@ -3,3 +3,14 @@
     height: 50px;
     border-radius: 20px;
 }
+
+.selectedPage {
+    font-style: oblique;
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.notselectedPage {
+    font-style: oblique;
+    margin-right: 5px;
+}
