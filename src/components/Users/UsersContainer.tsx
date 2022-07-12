@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {
     followAC,
-    initialStateType,
+    initialStateType, isFetchingAC,
     setCurrentPageAC, setTotalCountAC,
     setUsersAC,
     unfollowAC,
@@ -12,6 +12,7 @@ import {
 import {rootReducerType} from "../../redux/redux-store";
 import axios from "axios";
 import Users from "./Users";
+import {Preloader} from "../../comman/preloader/Preloader";
 
 type MapStatePropsType = {
     usersPage: initialStateType
@@ -23,6 +24,7 @@ type MapDispatchPropsType = {
     setUsers: (users: Array<userType>) => void
     setCurrentPage: (currentPage: number) => void
     setTotalCount: (totalCount: number) => void
+    isFetching: (isFetching: boolean) => void
 }
 
 export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
@@ -30,10 +32,11 @@ export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
 class UsersContain extends React.Component <UsersPropsType, rootReducerType> {
     componentDidMount() {
         if (this.props.usersPage.users.length === 0) {
-
+            this.props.isFetching(true)
             axios.get(
                 `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`)
                 .then((res) => {
+                    this.props.isFetching(false)
                     this.props.setUsers(res.data.items)
                     this.props.setTotalCount(res.data.totalCount)
                     console.log(res.data.items)
@@ -42,11 +45,13 @@ class UsersContain extends React.Component <UsersPropsType, rootReducerType> {
     }
 
     onPageChange = (page: number) => {
-        this.props.setCurrentPage(page)
 
+        this.props.setCurrentPage(page)
+        this.props.isFetching(true)
         axios.get(
             `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.usersPage.pageSize}`)
             .then((res) => {
+                this.props.isFetching(false)
                 this.props.setUsers(res.data.items)
                 console.log(res.data.items)
             })
@@ -57,14 +62,18 @@ class UsersContain extends React.Component <UsersPropsType, rootReducerType> {
 
 
         return (
-            <Users users={this.props.usersPage.users}
-                   totalCount={this.props.usersPage.totalCount}
-                   currentPage={this.props.usersPage.currentPage}
-                   pageSize={this.props.usersPage.pageSize}
-                   onPageChange={this.onPageChange}
-                   follow={this.props.follow}
-                   unfollow={this.props.unfollow}
-            />
+            <>
+                {this.props.usersPage.isFetching ? <Preloader/> : null}
+
+                <Users users={this.props.usersPage.users}
+                       totalCount={this.props.usersPage.totalCount}
+                       currentPage={this.props.usersPage.currentPage}
+                       pageSize={this.props.usersPage.pageSize}
+                       onPageChange={this.onPageChange}
+                       follow={this.props.follow}
+                       unfollow={this.props.unfollow}
+                />
+            </>
         )
     }
 }
@@ -91,6 +100,9 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
         },
         setTotalCount: (totalCount: number) => {
             dispatch(setTotalCountAC(totalCount))
+        },
+        isFetching: (isFetching: boolean) => {
+            dispatch(isFetchingAC(isFetching))
         }
     }
 
