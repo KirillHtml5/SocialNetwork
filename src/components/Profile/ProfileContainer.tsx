@@ -4,6 +4,8 @@ import axios from "axios";
 import {connect} from 'react-redux';
 import {rootReducerType} from "../../redux/redux-store";
 import {setUserProfile} from "../../redux/profile-reducer";
+import {useParams} from "react-router-dom";
+
 
 export type ProfileType = {
     aboutMe: string,
@@ -30,12 +32,24 @@ export type ProfileType = {
 type MapStatePropsType = {
     profile: ProfileType
 }
+type MapDispatchPropsType = {
+    setUserProfile: (profile: ProfileType) => void
 
-class ProfileContainer extends React.Component<any, any> {
+}
+type userId = {
+    userId: string
+}
+
+
+export type ProfilePropsType = MapStatePropsType & MapDispatchPropsType
+export type ProfilePropsType2 = MapStatePropsType & MapDispatchPropsType & userId
+
+
+class ProfileContainer extends React.Component<ProfilePropsType2, rootReducerType> {
     componentDidMount() {
-
+        let userId = this.props.userId
         axios.get(
-            `https://social-network.samuraijs.com/api/1.0/profile/2`)
+            `https://social-network.samuraijs.com/api/1.0/profile/` + userId)
             .then((res) => {
                 this.props.setUserProfile(res.data)
 
@@ -60,4 +74,14 @@ let mapStateToProps = (state: rootReducerType): MapStatePropsType => {
     }
 }
 
-export default connect(mapStateToProps, {setUserProfile})(ProfileContainer);
+const WithRouterComponent = (props: ProfilePropsType) => {
+    const params = useParams();
+    return (
+        <ProfileContainer
+            {...props} // Пропсы из mapStateToProps, {setUserProfile}
+            userId={params.userId ? params.userId : '2'} // Если такого userId нету, то отобразить 2
+        />
+    );
+}
+
+export default connect(mapStateToProps, {setUserProfile})(WithRouterComponent);
