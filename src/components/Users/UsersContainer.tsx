@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
 import {
     followAC,
     initialStateType, isFetchingAC,
@@ -29,7 +28,7 @@ type MapDispatchPropsType = {
 
 export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
 
-class UsersContain extends React.Component <UsersPropsType, rootReducerType> {
+class UsersContainer extends React.Component <UsersPropsType, rootReducerType> {
     componentDidMount() {
         if (this.props.usersPage.users.length === 0) {
             this.props.isFetching(true)
@@ -109,7 +108,7 @@ let mapStateToProps = (state: rootReducerType): MapStatePropsType => {
 // }
 
 
-export const UsersContainer = connect(mapStateToProps,
+export default connect(mapStateToProps,
     {
         follow: followAC,
         unfollow: unfollowAC,
@@ -117,4 +116,4 @@ export const UsersContainer = connect(mapStateToProps,
         setCurrentPage: setCurrentPageAC,
         setTotalCount: setTotalCountAC,
         isFetching: isFetchingAC,
-    })(UsersContain)
+    })(UsersContainer)

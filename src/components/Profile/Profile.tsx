@@ -1,17 +1,18 @@
 import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {ProfileType} from "./ProfileContainer";
 
 
-// export type ProfilePropsType = {
-//     state: StateType
-//     dispatch: (action: ActionType) => void
-// }
+export type ProfilePropsType = {
+    profile: ProfileType
+}
 
-const Profile = () => {
+const Profile = (props: ProfilePropsType) => {
+
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileInfo profile={props.profile}/>
             <MyPostsContainer/>
         </div>
     )
