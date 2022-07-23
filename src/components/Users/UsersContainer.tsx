@@ -33,7 +33,9 @@ class UsersContainer extends React.Component <UsersPropsType, rootReducerType> {
         if (this.props.usersPage.users.length === 0) {
             this.props.isFetching(true)
             axios.get(
-                `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`)
+                `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`, {
+                    withCredentials: true
+                })
                 .then((res) => {
                     this.props.isFetching(false)
                     this.props.setUsers(res.data.items)
@@ -48,7 +50,9 @@ class UsersContainer extends React.Component <UsersPropsType, rootReducerType> {
         this.props.setCurrentPage(page)
         this.props.isFetching(true)
         axios.get(
-            `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.usersPage.pageSize}`)
+            `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.usersPage.pageSize}`, {
+                withCredentials: true
+            })
             .then((res) => {
                 this.props.isFetching(false)
                 this.props.setUsers(res.data.items)
