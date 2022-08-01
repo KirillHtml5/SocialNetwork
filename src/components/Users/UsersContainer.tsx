@@ -9,9 +9,9 @@ import {
     userType
 } from "../../redux/users-reducer";
 import {rootReducerType} from "../../redux/redux-store";
-import axios from "axios";
 import Users from "./Users";
 import {Preloader} from "../../comman/preloader/Preloader";
+import {usersAPI} from "../../api/Api";
 
 type MapStatePropsType = {
     usersPage: initialStateType
@@ -32,15 +32,12 @@ class UsersContainer extends React.Component <UsersPropsType, rootReducerType> {
     componentDidMount() {
         if (this.props.usersPage.users.length === 0) {
             this.props.isFetching(true)
-            axios.get(
-                `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`, {
-                    withCredentials: true
-                })
-                .then((res) => {
+            usersAPI.getUsers(this.props.usersPage.currentPage, this.props.usersPage.pageSize)
+                .then((data) => {
                     this.props.isFetching(false)
-                    this.props.setUsers(res.data.items)
-                    this.props.setTotalCount(res.data.totalCount)
-                    console.log(res.data.items)
+                    this.props.setUsers(data.items)
+                    this.props.setTotalCount(data.totalCount)
+                    console.log(data.items)
                 })
         }
     }
@@ -49,14 +46,11 @@ class UsersContainer extends React.Component <UsersPropsType, rootReducerType> {
 
         this.props.setCurrentPage(page)
         this.props.isFetching(true)
-        axios.get(
-            `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.usersPage.pageSize}`, {
-                withCredentials: true
-            })
-            .then((res) => {
+        usersAPI.getUsers(page, this.props.usersPage.pageSize)
+            .then((data) => {
                 this.props.isFetching(false)
-                this.props.setUsers(res.data.items)
-                console.log(res.data.items)
+                this.props.setUsers(data.items)
+                console.log(data.items)
             })
     }
 
