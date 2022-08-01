@@ -37,3 +37,11 @@ export const authAPI = {
             })
     }
 }
+export const profileAPI = {
+    getProfile(userId: string) {
+        return instanse.get(`profile/` + userId)
+            .then(response => {
+                return response.data
+            })
+    }
+}

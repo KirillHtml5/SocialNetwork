@@ -29,6 +29,11 @@ export type isFetchingActionType = {
     isFetching: boolean
 
 }
+export type isFollowingActionType = {
+    type: "SET-IS-FOLLOWING",
+    isFollowing: boolean,
+    userId: number
+}
 export type userType = {
     name: string,
     id: number,
@@ -46,6 +51,7 @@ export type UsersPageType = {
     currentPage: number,
     error: string,
     isFetching: boolean,
+    followingInProgress: number[],
 }
 
 
@@ -59,6 +65,7 @@ export type ActionType = addActionType
     | setCurrentPageActionType
     | setTotalCountActionType
     | isFetchingActionType
+    | isFollowingActionType
 
 export type initialStateType = UsersPageType
 
@@ -69,6 +76,7 @@ const initialState: initialStateType = {
     currentPage: 1,
     error: '',
     isFetching: false,
+    followingInProgress: [],
 }
 
 const usersReducer = (state: initialStateType = initialState, action: ActionType): initialStateType => {
@@ -98,6 +106,14 @@ const usersReducer = (state: initialStateType = initialState, action: ActionType
         case "SET-IS-FETCHING": {
             return {...state, isFetching: action.isFetching}
         }
+        case "SET-IS-FOLLOWING": {
+            return {
+                ...state,
+                followingInProgress: action.isFollowing
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id !== action.userId)
+            }
+        }
         default:
             return state;
 
@@ -123,5 +139,8 @@ export const setTotalCountAC = (totalCount: number): setTotalCountActionType => 
 }
 export const isFetchingAC = (isFetching: boolean): isFetchingActionType => {
     return {type: "SET-IS-FETCHING", isFetching}
+}
+export const isFollowingAC = (isFollowing: boolean, userId: number): isFollowingActionType => {
+    return {type: "SET-IS-FOLLOWING", isFollowing, userId}
 }
 export default usersReducer;

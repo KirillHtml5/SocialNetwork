@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {
     followAC,
-    initialStateType, isFetchingAC,
+    initialStateType, isFetchingAC, isFollowingAC,
     setCurrentPageAC, setTotalCountAC,
     setUsersAC,
     unfollowAC,
@@ -24,6 +24,7 @@ type MapDispatchPropsType = {
     setCurrentPage: (currentPage: number) => void
     setTotalCount: (totalCount: number) => void
     isFetching: (isFetching: boolean) => void
+    isFollowing: (isFollowing: boolean, userId: number) => void
 }
 
 export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
@@ -69,6 +70,8 @@ class UsersContainer extends React.Component <UsersPropsType, rootReducerType> {
                        onPageChange={this.onPageChange}
                        follow={this.props.follow}
                        unfollow={this.props.unfollow}
+                       isFollowing={this.props.isFollowing}
+                       followInProgress={this.props.usersPage.followingInProgress}
                 />
             </>
         )
@@ -81,30 +84,6 @@ let mapStateToProps = (state: rootReducerType): MapStatePropsType => {
 
     }
 }
-// let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-//     return {
-//         follow: (userId: number) => {
-//             dispatch(followAC(userId))
-//         },
-//         unfollow: (userId: number) => {
-//             dispatch(unfollowAC(userId))
-//         },
-//         setUsers: (users: Array<userType>) => {
-//             dispatch(setUsersAC(users))
-//         },
-//         setCurrentPage: (currentPage: number) => {
-//             dispatch(setCurrentPageAC(currentPage))
-//         },
-//         setTotalCount: (totalCount: number) => {
-//             dispatch(setTotalCountAC(totalCount))
-//         },
-//         isFetching: (isFetching: boolean) => {
-//             dispatch(isFetchingAC(isFetching))
-//         }
-//     }
-//
-// }
-
 
 export default connect(mapStateToProps,
     {
@@ -114,4 +93,5 @@ export default connect(mapStateToProps,
         setCurrentPage: setCurrentPageAC,
         setTotalCount: setTotalCountAC,
         isFetching: isFetchingAC,
+        isFollowing: isFollowingAC
     })(UsersContainer)
