@@ -1,5 +1,7 @@
 import {addMessageActionType, updateMessageActionType} from "./dialogs-reducer";
 import {addActionType, updateActionType} from "./profile-reducer";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/Api";
 
 export type followActionType = {
     type: "FOLLOW",
@@ -143,4 +145,38 @@ export const isFetchingAC = (isFetching: boolean): isFetchingActionType => {
 export const isFollowingAC = (isFollowing: boolean, userId: number): isFollowingActionType => {
     return {type: "SET-IS-FOLLOWING", isFollowing, userId}
 }
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    dispatch(isFetchingAC(true))
+    usersAPI.getUsers(currentPage, pageSize)
+        .then((data) => {
+            dispatch(isFetchingAC(false))
+            dispatch(setUsersAC(data.items))
+            dispatch(setTotalCountAC(data.totalCount))
+            console.log(data.items)
+        })
+}
+export const unFollowTC = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(isFollowingAC(true, userId))
+    usersAPI.unfollowUser(userId)
+        .then((data) => {
+            if (data.resultCode === 0) {
+                dispatch(unfollowAC(userId))
+                console.log(data)
+            }
+            dispatch(isFollowingAC(false, userId))
+        })
+}
+export const followTC = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(isFollowingAC(true, userId))
+    usersAPI.followUser(userId)
+        .then((data) => {
+            if (data.resultCode === 0) {
+                dispatch(followAC(userId))
+                console.log(data)
+            }
+            dispatch(isFollowingAC(false, userId))
+        })
+}
+
 export default usersReducer;
