@@ -29,12 +29,12 @@ const Users: React.FC<UsersPropsFuncType> = (props) => {
     return (
         <div>
             <div>
-                {pages.map(p => {
-                    return <span
-                        className={props.currentPage === p ? s.selectedPage : s.notselectedPage}
-                        onClick={() => {
-                            props.onPageChange(p)
-                        }}
+                {pages.map((p, index) => {
+                    return <span key={index}
+                                 className={props.currentPage === p ? s.selectedPage : s.notselectedPage}
+                                 onClick={() => {
+                                     props.onPageChange(p)
+                                 }}
                     >{p}</span>
                 })
                 }

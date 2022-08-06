@@ -149,20 +149,20 @@ export const isFollowingAC = (isFollowing: boolean, userId: number): isFollowing
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
     dispatch(isFetchingAC(true))
     usersAPI.getUsers(currentPage, pageSize)
-        .then((data) => {
+        .then((response) => {
             dispatch(isFetchingAC(false))
-            dispatch(setUsersAC(data.items))
-            dispatch(setTotalCountAC(data.totalCount))
-            console.log(data.items)
+            dispatch(setUsersAC(response.data.items))
+            dispatch(setTotalCountAC(response.data.totalCount))
+            console.log('getUsers', response.data.items)
         })
 }
 export const unFollowTC = (userId: number) => (dispatch: Dispatch) => {
     dispatch(isFollowingAC(true, userId))
     usersAPI.unfollowUser(userId)
-        .then((data) => {
-            if (data.resultCode === 0) {
+        .then((response) => {
+            if (response.data.resultCode === 0) {
                 dispatch(unfollowAC(userId))
-                console.log(data)
+                console.log('unfollow', response.data)
             }
             dispatch(isFollowingAC(false, userId))
         })
@@ -170,10 +170,10 @@ export const unFollowTC = (userId: number) => (dispatch: Dispatch) => {
 export const followTC = (userId: number) => (dispatch: Dispatch) => {
     dispatch(isFollowingAC(true, userId))
     usersAPI.followUser(userId)
-        .then((data) => {
-            if (data.resultCode === 0) {
+        .then((response) => {
+            if (response.data.resultCode === 0) {
                 dispatch(followAC(userId))
-                console.log(data)
+                console.log('follow', response.data)
             }
             dispatch(isFollowingAC(false, userId))
         })

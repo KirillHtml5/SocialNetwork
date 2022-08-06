@@ -2,8 +2,7 @@ import React from 'react';
 import Header from "./Header";
 import {rootReducerType} from "../../redux/redux-store";
 import {connect} from 'react-redux';
-import {setUserDataAC, userDataType} from "../../redux/auth-reducer";
-import {authAPI} from "../../api/Api";
+import {getMeTC} from "../../redux/auth-reducer";
 
 
 type MapStatePropsType = {
@@ -11,7 +10,8 @@ type MapStatePropsType = {
     login: null
 }
 type MapDispatchPropsType = {
-    setUserDataAC: (data: userDataType) => void
+    // setUserDataAC: (data: userDataType) => void
+    getMeTC: () => void
 
 }
 export type authPropsType = MapStatePropsType & MapDispatchPropsType
@@ -19,14 +19,9 @@ export type authPropsType = MapStatePropsType & MapDispatchPropsType
 class HeaderContainer extends React.Component<authPropsType, rootReducerType> {
 
     componentDidMount() {
-        authAPI.getMe()
-            .then((data) => {
-                // this.props.isFetching(false)
-                if (data.resultCode === 0) {
-                    this.props.setUserDataAC(data.data)
-                }
-                console.log(data.data)
-            })
+
+        this.props.getMeTC()
+
     }
 
     render() {
@@ -44,4 +39,4 @@ let mapStateToProps = (state: rootReducerType): MapStatePropsType => {
     }
 }
 
-export default connect(mapStateToProps, {setUserDataAC})(HeaderContainer);
+export default connect(mapStateToProps, {getMeTC})(HeaderContainer);

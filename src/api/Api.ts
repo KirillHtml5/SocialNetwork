@@ -11,37 +11,27 @@ const instanse = axios.create({
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
         return instanse.get(`users?page=${currentPage}&count=${pageSize}`)
-            .then(response => {
-                return response.data
-            })
+
     },
     followUser(id: number) {
         return instanse.post(`follow/${id}`, {})
-            .then(response => {
-                return response.data
-            })
+
     },
     unfollowUser(id: number) {
         return instanse.delete(`follow/${id}`)
-            .then(response => {
-                return response.data
-            })
+
     }
 
 }
 export const authAPI = {
     getMe() {
         return instanse.get(`auth/me`)
-            .then(response => {
-                return response.data
-            })
+
     }
 }
 export const profileAPI = {
     getProfile(userId: string) {
         return instanse.get(`profile/` + userId)
-            .then(response => {
-                return response.data
-            })
+
     }
 }

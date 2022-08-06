@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {authAPI} from "../api/Api";
+
 export type setUserActionType = {
     type: "SET-USER-DATA",
     data: userDataType
@@ -11,20 +14,21 @@ export type userDataType = {
     email: null,
     login: null,
 }
-// export type isFetchingActionType = {
-//     type: "SET-IS-FETCHING",
-//     isFetching: boolean
-// }
+export type isFetchingActionType = {
+    type: "SET-IS-FETCHING",
+    isFetching: boolean
+}
 
 export type AuthType = {
     id: null,
     email: null,
     login: null,
     isAuth: boolean,
+    isFetching: boolean,
 }
 
 
-export type ActionType = setUserActionType
+export type ActionType = setUserActionType | isFetchingActionType
 
 export type initialStateType = AuthType
 
@@ -33,6 +37,7 @@ const initialState: initialStateType = {
     email: null,
     login: null,
     isAuth: false,
+    isFetching: false,
 }
 
 const authReducer = (state: initialStateType = initialState, action: ActionType): initialStateType => {
@@ -43,6 +48,9 @@ const authReducer = (state: initialStateType = initialState, action: ActionType)
                 ...action.data,
                 isAuth: true
             }
+        }
+        case "SET-IS-FETCHING": {
+            return {...state, isFetching: action.isFetching}
         }
         default:
             return state;
@@ -56,7 +64,19 @@ export const setUserDataAC = (data: userDataType): setUserActionType => {
     return {type: "SET-USER-DATA", data}
 }
 
-// export const isFetchingAC = (isFetching: boolean): isFetchingActionType => {
-//     return {type: "SET-IS-FETCHING", isFetching}
-// }
+export const isFetchingAC = (isFetching: boolean): isFetchingActionType => {
+    return {type: "SET-IS-FETCHING", isFetching}
+}
+
+export const getMeTC = () => (dispatch: Dispatch) => {
+    dispatch(isFetchingAC(true))
+    authAPI.getMe()
+        .then((response) => {
+            dispatch(isFetchingAC(false))
+            if (response.data.data.resultCode === 0) {
+                dispatch(setUserDataAC(response.data.data))
+            }
+            console.log('me', response.data.data)
+        })
+}
 export default authReducer;
