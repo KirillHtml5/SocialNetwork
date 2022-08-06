@@ -3,6 +3,7 @@ import s from './Dialogs.module.css';
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
+import {Navigate} from "react-router-dom";
 
 
 export const Dialogs = (props: DialogsPropsType) => {
@@ -20,6 +21,8 @@ export const Dialogs = (props: DialogsPropsType) => {
         let text = event.currentTarget.value;
         props.updateMessage(text)
     }
+
+    if (!props.isAuth) return <Navigate to={"/login"}/>
 
     return (
         <div className={s.dialogs}>

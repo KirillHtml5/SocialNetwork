@@ -1,7 +1,8 @@
 import React from 'react';
 import s from './ProfileInfo.module.css'
 import {ProfileType} from "../ProfileContainer";
-import {Preloader} from "../../../comman/preloader/Preloader";
+
+import userPhoto from "../../../assets/images/user.png";
 
 export type ProfileInfoPropsType = {
     profile: ProfileType
@@ -9,9 +10,9 @@ export type ProfileInfoPropsType = {
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
 
-    if (!props.profile.photos.large) {
-        return <Preloader/>
-    }
+    // if (!props.profile.photos.large) {
+    //     return <Preloader/>
+    // }
 
     return (
         <div>
@@ -20,7 +21,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                     src='https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg'/>
             </div>
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large}/>
+                <img src={props.profile.photos.large != null ? props.profile.photos.large : userPhoto}/>
                 <h3>{props.profile.fullName}</h3>
                 <div>
                     <h4>about me:</h4>

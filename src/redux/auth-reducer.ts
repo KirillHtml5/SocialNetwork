@@ -73,7 +73,7 @@ export const getMeTC = () => (dispatch: Dispatch) => {
     authAPI.getMe()
         .then((response) => {
             dispatch(isFetchingAC(false))
-            if (response.data.data.resultCode === 0) {
+            if (response.data.resultCode === 0) {
                 dispatch(setUserDataAC(response.data.data))
             }
             console.log('me', response.data.data)
